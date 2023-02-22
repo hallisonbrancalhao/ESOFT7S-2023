@@ -1,8 +1,12 @@
 import {Request, Response} from 'express'
 
 class UserController {
-    public async index(req: Request, res: Response) {
-        return res.json('Thiago Bussola')
+    public async findUsers(req: Request, res: Response) {
+        return res.json('Hallison Brancalhão')
+    }
+    
+    public async createUser(req: Request, res: Response) {
+        return res.json('Hallison Brancalhão')
     }
 }
 
