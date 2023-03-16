@@ -14,5 +14,7 @@ routes.post("/users", userController.createUser);
 
 routes.post("/products", productsController.createFile);
 routes.get("/products", productsController.readFiles);
+routes.get("/products-stock", productsController.stock);
+routes.get("/products-stock-total", productsController.stockTotal);
 
 export default routes;

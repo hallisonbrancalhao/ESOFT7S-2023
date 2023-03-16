@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import productService, { ProductData } from "../service/productService";
+import productService from "../service/productService";
 
 class productsController {
   public async createFile(req: Request, res: Response) {
-    console.log("productsController : createFile : req:", req.body);
     productService.createProductList(req.body);
     return res.status(201).send();
   }
@@ -13,6 +12,16 @@ class productsController {
     if (!data) {
       return res.status(500).send("Nenhum item encontrado");
     }
+    return res.send(data);
+  }
+
+  public async stock(req: Request, res: Response) {
+    const data = await productService.stock();
+    return res.send(data);
+  }
+
+  public async stockTotal(req: Request, res: Response) {
+    const data = await productService.stockTotal();
     return res.send(data);
   }
 }

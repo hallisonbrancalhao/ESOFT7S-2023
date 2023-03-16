@@ -1,15 +1,7 @@
 import { writeFile, readFile } from "fs/promises";
 
-export interface ProductData {
-  nome: string;
-  qtde: number;
-  preco: number;
-  data_compra: Date;
-  data_entrega: Date;
-}
-
 class ProductService {
-  async createProductList(data: Promise<{}>) {
+  async createProductList(data) {
     try {
       console.log("Criando arquivo...");
       await writeFile("products.json", JSON.stringify(data, null, 2));
@@ -19,13 +11,38 @@ class ProductService {
     }
   }
 
-  async readProducts(): Promise<ProductData[] | undefined> {
+  async readProducts() {
     try {
-      const data = await readFile("products.json", "utf-8");
+      const data = await readFile("products.json", "utf8");
       return JSON.parse(data);
     } catch (err) {
-      console.error("Erro ao ler arquivo JSON:", err);
+      throw new Error("Erro ao ler arquivo");
     }
+  }
+  async stock() {
+    try {
+      const data = await this.readProducts();
+      const productStock = data.map((product) => {
+        let stock = {
+          nome: product.nome,
+          qtde: product.qtde,
+          preco: product.preco,
+          valor_stock: product.qtde * product.preco,
+        };
+        return stock;
+      });
+      return productStock;
+    } catch (err) {
+      throw new Error("Erro ao executar calculo");
+    }
+  }
+
+  async stockTotal() {
+    const products = await this.stock();
+    const total = products.reduce((acc, item) => {
+      return acc + item.valor_stock;
+    }, 0);
+    return total;
   }
 }
 
