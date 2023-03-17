@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, json } from "express";
 import productService from "../service/productService";
 
 class productsController {
@@ -22,7 +22,7 @@ class productsController {
 
   public async stockTotal(req: Request, res: Response) {
     const data = await productService.stockTotal();
-    return res.send(data);
+    return res.sendStatus(data);
   }
 }
 

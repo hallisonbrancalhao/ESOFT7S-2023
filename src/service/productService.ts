@@ -39,10 +39,10 @@ class ProductService {
 
   async stockTotal() {
     const products = await this.stock();
-    const total = products.reduce((acc, item) => {
-      return acc + item.valor_stock;
+    const total_value_stock = products.reduce((acc, product) => {
+      return acc + product.valor_stock;
     }, 0);
-    return total;
+    return total_value_stock;
   }
 }
 
