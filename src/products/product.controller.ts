@@ -29,8 +29,16 @@ class productController {
     return await new ProductService().find(req.params.id);
   }
 
-  async productsFile(req: Request, res: Response) {
-    return await new ProductService().productsFile();
+  async write(req: Request, res: Response) {
+    const product = await new ProductService().write();
+
+    return res.status(200).json(product);
+  }
+
+  async read(req: Request, res: Response) {
+    const product = await new ProductService().read();
+
+    return res.status(200).json(product);
   }
 }
 

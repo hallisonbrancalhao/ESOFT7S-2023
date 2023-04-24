@@ -14,7 +14,7 @@ routes.get("/users-name", userController.findByName);
 
 routes.post("/products", productController.create);
 routes.get("/products", productController.list);
-routes.get("/products-file", productController.productsFile);
+routes.get("/products-file", productController.read);
 routes.get("/products/:id", productController.find);
 routes.put("/products/:id", productController.update);
 routes.delete("/products/:id", productController.delete);

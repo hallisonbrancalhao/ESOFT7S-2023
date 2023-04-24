@@ -9,19 +9,18 @@ class stockService {
       ...product,
       stockValue: product.price * product.quantity,
     }));
-    return await StockModel.insertMany(stockProducts);
+    return await StockModel.create(stockProducts);
   }
 
   async findRandom() {
-    const products = await StockModel.find();
-    if (products.length < 10) return;
+    const products = await StockModel.find().limit(10);
 
     let productsSelecteds: any = [];
-    while (productsSelecteds.length < 10) {
+
+    while (productsSelecteds.length < 4) {
       let random = Math.floor(Math.random() * products.length);
-      if (!productsSelecteds.includes(products[random])) {
+      if (!productsSelecteds.includes(products[random]))
         productsSelecteds.push(products[random]);
-      }
     }
     return productsSelecteds;
   }
@@ -36,14 +35,3 @@ class stockService {
 }
 
 export default new stockService();
-
-/**
- * 3 - Nessa service utilize o map para adicionar o campo stock Value
-e Multiplique o quantity pelo price e depois salve essa nova estrutura em uma "tabela" chamada
-productStock
-
-4 - Na service de produtos crie uma rota que busque 10 produtos e retorne 4 de maneira aleatórios
-
-5 - Na service de stock busque todos os itens do banco e utilizando o reduce traga o valor total
-     do stock e disponibilize isso em uma rota
- */

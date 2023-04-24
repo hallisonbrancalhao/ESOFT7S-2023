@@ -1,7 +1,6 @@
 import { Product } from "./types/product.type";
 import ProductModel from "./product.schema";
-import { fstat } from "fs";
-import { readFile } from "fs/promises";
+import { readFile, writeFile } from "fs/promises";
 
 export class ProductService {
   constructor() {}
@@ -38,8 +37,15 @@ export class ProductService {
     return "Successfully deleted";
   }
 
-  async productsFile() {
-    const products = await readFile("products.json", "utf8");
+  async write() {
+    const products = await this.list();
+
+    writeFile("products.json", JSON.stringify(products, null, 2));
+  }
+
+  async read() {
+    const products = JSON.parse(await readFile("products.json", "utf-8"));
+
     return products;
   }
 }

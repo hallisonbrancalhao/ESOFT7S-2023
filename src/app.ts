@@ -23,7 +23,6 @@ class App {
       mongoose.set("strictQuery", true);
       await mongoose.connect(
         "mongodb+srv://hallisonbrancalhao:hallisonbrancalhao@esoft2023.dmbvhqt.mongodb.net/topicos"
-        // "mongodb://localhost:27017/"
       );
       console.log("Connect database success");
     } catch (err) {
